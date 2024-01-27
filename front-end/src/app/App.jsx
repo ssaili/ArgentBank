@@ -11,11 +11,11 @@ function App() {
       element: <HomePage />,
     },
     {
-      path: "/signin",
+      path: "/login",
       element: <SignInPage />,
     },
     {
-      path: "/user",
+      path: "/profile",
       element: <UserPage />,
     },
     {

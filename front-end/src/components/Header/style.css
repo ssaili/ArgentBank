@@ -23,6 +23,10 @@
   text-decoration: underline;
 }
 
+.fa-user-circle {
+  padding-right: 0.2rem;
+}
+
 .main-nav-logo {
   display: flex;
   align-items: center;
