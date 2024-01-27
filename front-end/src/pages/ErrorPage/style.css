@@ -1,0 +1,27 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  margin-block: 6rem;
+}
+.error-number {
+  text-align: center;
+  color: #00bc77;
+  font-weight: bold;
+  font-size: 8rem;
+}
+
+.error-homepage-link {
+  font-size: 2rem;
+  color: #42b983;
+  font-weight: normal;
+}
+
+@media (max-width: 720px) {
+  .error-number {
+    font-size: 3rem;
+  }
+
+  .error-homepage-link {
+    font-size: 1rem;
+  }
+}
