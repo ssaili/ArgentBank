@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import SignInPage from "../pages/SignInPage";
-import UserPage from "../pages/UserPage";
+import ProfilePage from "../pages/ProfilePage";
 import ErrorPage from "../pages/ErrorPage";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     },
     {
       path: "/profile",
-      element: <UserPage />,
+      element: <ProfilePage />,
     },
     {
       path: "*",
