@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import "./style.css";
 import featuresItems from "../../data/featureItems.json";
 import FeatureItem from "../../components/FeatureItem";
@@ -15,7 +16,7 @@ const HomePage = () => {
           <h2 className="sr-only">Features</h2>
           {featuresItems.map((item) => (
             <FeatureItem
-              key={item.id}
+              key={nanoid()}
               imageSrc={require(`../../assets/icons/${item.imageSrc}`)}
               imageAlt={item.imageAlt}
               title={item.title}

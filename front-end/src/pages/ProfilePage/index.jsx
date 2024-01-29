@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { nanoid } from "@reduxjs/toolkit";
 import AccountItem from "../../components/AccountItem";
 import accountItems from "../../data/accountItems.json";
 import Header from "../../components/Header";
@@ -19,7 +20,7 @@ const ProfilePage = () => {
         <h2 className="sr-only">Accounts</h2>
         {accountItems.map((item) => (
           <AccountItem
-            key={item.id}
+            key={nanoid()}
             title={item.title}
             amount={item.amount}
             amountDescription={item.amountDescription}
