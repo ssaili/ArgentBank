@@ -9,10 +9,10 @@ const ErrorPage = () => {
       <Header />
       <div className="error">
         <p className="error-number">
-          Erreur 404
+          An error has occurred. Please try again later.
           <br />
           <Link className="error-homepage-link" to="/">
-            Retourner sur la page d'accueil
+            Go to Homepage
           </Link>
         </p>
       </div>
