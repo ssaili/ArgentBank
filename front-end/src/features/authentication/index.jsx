@@ -1,8 +1,8 @@
-import "./style.css";
-import { login } from "./authenticationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { login } from "./authenticationSlice";
+import "./style.css";
 
 const AuthenticationForm = () => {
   const [message, setMessage] = useState(null);
@@ -13,40 +13,33 @@ const AuthenticationForm = () => {
 
   const { loading } = useSelector((state) => state.authentication);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const username = event.target.username.value;
-    const password = event.target.password.value;
+    setMessage(null);
 
-    if (username === "" || password === "") {
-      setMessage("Please fill in all fields");
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    if (!email || !password) {
+      setMessage("Please fill out all fields");
       return;
     }
 
-    dispatch(login({ email: username, password: password })).then(
-      (response) => {
-        if (response.meta.requestStatus === "rejected") {
-          console.error(response.error.message);
-          navigate("*");
-        } else if (response.meta.requestStatus === "fulfilled") {
-          switch (response.payload.status) {
-            case 400:
-              response.payload.message === "Error: User not found!"
-                ? setMessage("Incorrect username")
-                : setMessage("Incorrect password");
-              break;
-            case 200:
-              navigate("/profile");
-              break;
-            default:
-              console.error(response.payload.message);
-              navigate("*");
-              break;
-          }
+    dispatch(login({ email: email, password: password }))
+      .unwrap()
+      .then((promiseResult) => {
+        if (promiseResult.status === 200) {
+          localStorage.setItem("token", promiseResult.body.token);
+          navigate("/profile");
+        } else {
+          setMessage(promiseResult.message);
         }
-      }
-    );
+      })
+      .catch((error) => {
+        console.error(error.message);
+        navigate("/error");
+      });
   };
 
   return (
@@ -55,16 +48,16 @@ const AuthenticationForm = () => {
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <div className="input-wrapper">
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" />
+          <label htmlFor="email">Email</label>
+          <input type="text" id="email" />
         </div>
         <div className="input-wrapper">
           <label htmlFor="password">Password</label>
           <input type="password" id="password" />
         </div>
         <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
-          <label htmlFor="remember-me">Remember me</label>
+          <input type="checkbox" id="rememberMe" />
+          <label htmlFor="rememberMe">Remember me</label>
         </div>
         {message && <p className="sign-in-error-message">{message}</p>}
         <button type="submit" className="sign-in-button">

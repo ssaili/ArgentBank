@@ -19,23 +19,17 @@ const authenticationSlice = createSlice({
   name: "authentication",
   initialState: {
     loading: false,
-    user: null,
-    error: null,
   },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
         state.loading = true;
-        state.user = null;
-        state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state) => {
         state.loading = false;
-        state.user = action.payload;
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state) => {
         state.loading = false;
-        state.error = action.error;
       });
   },
 });

@@ -36,3 +36,13 @@
   max-width: 100%;
   width: 200px;
 }
+
+@media (max-width: 424px) {
+  .main-nav-logo-image {
+    width: 130px;
+  }
+
+  .main-nav-item {
+    font-size: 0.8rem;
+  }
+}
