@@ -21,6 +21,7 @@ const ProfilePage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [displayEditName, setDisplayEditName] = useState(false);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     dispatch(getUser())
@@ -47,19 +48,25 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setMessage(null);
+
     const firstName = e.target.firstName.value;
     const lastName = e.target.lastName.value;
+
+    if (!firstName || !lastName) {
+      setMessage("Please fill out all fields");
+      return;
+    }
 
     dispatch(editUser({ firstName: firstName, lastName: lastName }))
       .unwrap()
       .then((promiseResult) => {
         if (promiseResult.status === 200) {
-          setFirstName(firstName);
-          setLastName(lastName);
+          setFirstName(firstName.charAt(0).toUpperCase() + firstName.slice(1));
+          setLastName(lastName.charAt(0).toUpperCase() + lastName.slice(1));
           setDisplayEditName(false);
         } else {
-          console.error(promiseResult.message);
-          setDisplayEditName(false);
+          setMessage(promiseResult.message);
         }
       })
       .catch((error) => {
@@ -100,20 +107,12 @@ const ProfilePage = () => {
               <form onSubmit={handleSubmit} className="edit-name-form">
                 <div className="inputs-wrapper">
                   <div className="firstname-wrapper">
-                    <label hidden htmlFor="firstName">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      defaultValue={firstName}
-                    />
+                    <label htmlFor="firstName">First Name</label>
+                    <input type="text" id="firstName" placeholder={firstName} />
                   </div>
                   <div className="lastname-wrapper">
-                    <label hidden htmlFor="lastName">
-                      Last Name
-                    </label>
-                    <input type="text" id="lastName" defaultValue={lastName} />
+                    <label htmlFor="lastName">Last Name</label>
+                    <input type="text" id="lastName" placeholder={lastName} />
                   </div>
                 </div>
                 <div className="buttons-wrapper">
@@ -123,6 +122,7 @@ const ProfilePage = () => {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
+                      setMessage(null);
                       setDisplayEditName(false);
                     }}
                   >
@@ -130,6 +130,7 @@ const ProfilePage = () => {
                   </button>
                 </div>
               </form>
+              {message && <p className="edit-name-error-message">{message}</p>}
             </>
           )}
         </div>

@@ -37,6 +37,15 @@
   gap: 1rem;
 }
 
+.firstname-wrapper,
+.lastname-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+  font-weight: bold;
+}
+
 .inputs-wrapper input {
   width: 110px;
   height: 40px;
@@ -55,4 +64,10 @@
   background-color: #00bc77;
   color: #fff;
   font-weight: bold;
+}
+
+.edit-name-error-message {
+  color: red;
+  font-size: 1rem;
+  text-align: center;
 }
