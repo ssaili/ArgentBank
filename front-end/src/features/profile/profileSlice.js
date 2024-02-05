@@ -31,27 +31,28 @@ export const editUser = createAsyncThunk(
 const profileSlice = createSlice({
   name: "profile",
   initialState: {
-    loading: false,
+    getLoading: false,
+    editLoading: false,
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
-        state.loading = true;
+        state.getLoading = true;
       })
       .addCase(getUser.fulfilled, (state) => {
-        state.loading = false;
+        state.getLoading = false;
       })
       .addCase(getUser.rejected, (state) => {
-        state.loading = false;
+        state.getLoading = false;
       })
       .addCase(editUser.pending, (state) => {
-        state.loading = true;
+        state.editLoading = true;
       })
       .addCase(editUser.fulfilled, (state) => {
-        state.loading = false;
+        state.editLoading = false;
       })
       .addCase(editUser.rejected, (state) => {
-        state.loading = false;
+        state.editLoading = false;
       });
   },
 });

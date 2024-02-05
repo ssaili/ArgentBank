@@ -13,6 +13,8 @@ const AuthenticationForm = () => {
 
   const { loading } = useSelector((state) => state.authentication);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,6 +25,11 @@ const AuthenticationForm = () => {
 
     if (!email || !password) {
       setMessage("Please fill out all fields");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      setMessage("Please enter a valid email");
       return;
     }
 

@@ -16,7 +16,7 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
 
-  const { loading } = useSelector((state) => state.profile);
+  const { getLoading, editLoading } = useSelector((state) => state.profile);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -75,7 +75,7 @@ const ProfilePage = () => {
       });
   };
 
-  return loading ? (
+  return getLoading ? (
     <Loader />
   ) : (
     <>
@@ -117,7 +117,7 @@ const ProfilePage = () => {
                 </div>
                 <div className="buttons-wrapper">
                   <button type="submit">
-                    {loading ? "Loading..." : "Save"}
+                    {editLoading ? "Loading..." : "Save"}
                   </button>
                   <button
                     onClick={(e) => {
