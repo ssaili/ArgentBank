@@ -1,6 +1,6 @@
 import "./style.css";
 
-const AccountItem = ({ title, amount, amountDescription }) => {
+const AccountItem = ({ title, amount, amountDescription, className }) => {
   return (
     <section className="account">
       <div className="account-content-wrapper">
@@ -9,7 +9,7 @@ const AccountItem = ({ title, amount, amountDescription }) => {
         <p className="account-amount-description">{amountDescription}</p>
       </div>
       <div className="account-content-wrapper cta">
-        <button className="transaction-button">View transactions</button>
+        <button className={className}>View transactions</button>
       </div>
     </section>
   );

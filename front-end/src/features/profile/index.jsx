@@ -20,7 +20,7 @@ const ProfilePage = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [displayEditName, setDisplayEditName] = useState(false);
+  const [isActive, setisActive] = useState(false);
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
@@ -64,14 +64,14 @@ const ProfilePage = () => {
         if (promiseResult.status === 200) {
           setFirstName(firstName.charAt(0).toUpperCase() + firstName.slice(1));
           setLastName(lastName.charAt(0).toUpperCase() + lastName.slice(1));
-          setDisplayEditName(false);
+          setisActive(false);
         } else {
           setMessage(promiseResult.message);
         }
       })
       .catch((error) => {
         console.error(error.message);
-        setDisplayEditName(false);
+        setisActive(false);
       });
   };
 
@@ -85,55 +85,55 @@ const ProfilePage = () => {
           Sign Out
         </Link>
       </Header>
-      <main className="main bg-dark">
-        <div className="header">
-          {!displayEditName ? (
-            <>
-              <h1>
-                Welcome back
-                <br />
-                {firstName} {lastName}!
-              </h1>
-              <button
-                className="edit-button"
-                onClick={() => setDisplayEditName(true)}
-              >
-                Edit Name
-              </button>
-            </>
-          ) : (
-            <>
-              <h1>Welcome back</h1>
-              <form onSubmit={handleSubmit} className="edit-name-form">
-                <div className="inputs-wrapper">
-                  <div className="firstname-wrapper">
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" placeholder={firstName} />
-                  </div>
-                  <div className="lastname-wrapper">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" placeholder={lastName} />
-                  </div>
+      <main className={!isActive ? "main bg-dark" : "main bg-light"}>
+        {!isActive ? (
+          <div className="header">
+            <h1>
+              Welcome back
+              <br />
+              {firstName} {lastName}!
+            </h1>
+            <button className="edit-button" onClick={() => setisActive(true)}>
+              Edit Name
+            </button>
+          </div>
+        ) : (
+          <div className="header-light">
+            <h1>Welcome back</h1>
+            <form onSubmit={handleSubmit} className="edit-name-form">
+              <div className="inputs-wrapper">
+                <div className="firstname-wrapper">
+                  <label hidden htmlFor="firstName">
+                    First Name
+                  </label>
+                  <input type="text" id="firstName" placeholder={firstName} />
                 </div>
-                <div className="buttons-wrapper">
-                  <button type="submit">
-                    {editLoading ? "Loading..." : "Save"}
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMessage(null);
-                      setDisplayEditName(false);
-                    }}
-                  >
-                    Cancel
-                  </button>
+                <div className="lastname-wrapper">
+                  <label hidden htmlFor="lastName">
+                    Last Name
+                  </label>
+                  <input type="text" id="lastName" placeholder={lastName} />
                 </div>
-              </form>
-              {message && <p className="edit-name-error-message">{message}</p>}
-            </>
-          )}
-        </div>
+              </div>
+              <div className="buttons-wrapper">
+                <button type="submit">
+                  {editLoading ? "Loading..." : "Save"}
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMessage(null);
+                    setisActive(false);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+            {message && <p className="edit-name-error-message">{message}</p>}
+          </div>
+        )}
+
         <h2 className="sr-only">Accounts</h2>
         {accountItems.map((item) => (
           <AccountItem
@@ -141,6 +141,9 @@ const ProfilePage = () => {
             title={item.title}
             amount={item.amount}
             amountDescription={item.amountDescription}
+            className={
+              !isActive ? "transaction-button" : "transaction-button-light"
+            }
           />
         ))}
       </main>

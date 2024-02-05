@@ -23,6 +23,11 @@
   margin-bottom: 2rem;
 }
 
+.header-light {
+  color: #12002b;
+  margin-bottom: 2rem;
+}
+
 .edit-name-form {
   display: flex;
   flex-direction: column;
@@ -60,9 +65,9 @@
 .buttons-wrapper button {
   width: 80px;
   height: 40px;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
+  border-color: #6458f5;
+  background-color: #fff;
+  color: #6458f5;
   font-weight: bold;
 }
 
