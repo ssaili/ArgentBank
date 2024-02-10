@@ -43,15 +43,19 @@ const ProfilePage = () => {
     return () => {
       localStorage.removeItem("token");
     };
-  }, []);
+  }, [dispatch, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     setMessage(null);
 
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;
+    const firstName =
+      e.target.firstName.value.charAt(0).toUpperCase() +
+      e.target.firstName.value.slice(1);
+    const lastName =
+      e.target.lastName.value.charAt(0).toUpperCase() +
+      e.target.lastName.value.slice(1);
 
     if (!firstName || !lastName) {
       setMessage("Please fill out all fields");
@@ -62,8 +66,8 @@ const ProfilePage = () => {
       .unwrap()
       .then((promiseResult) => {
         if (promiseResult.status === 200) {
-          setFirstName(firstName.charAt(0).toUpperCase() + firstName.slice(1));
-          setLastName(lastName.charAt(0).toUpperCase() + lastName.slice(1));
+          setFirstName(firstName);
+          setLastName(lastName);
           setisActive(false);
         } else {
           setMessage(promiseResult.message);
